@@ -1,0 +1,124 @@
+html {
+    height: 95%;
+    margin: 0;
+}
+
+body {
+    align-items: center;
+    align-items: center;
+    background-color: #0f172c;            
+    display: flex;
+    font-family: Roboto, sans-serif;
+    height: 100%;
+    justify-content: center;
+    margin: 0;
+}
+
+button {
+    background-color: #5e6f7e;
+    border-radius: 10px;
+    border: solid 2px #172435;
+    flex-grow: 1;
+    float: center;
+    font-size: x-large;
+    margin: 0;
+    margin: 1px;
+    padding: 22px;
+    text-align: center;
+    width: 69px;
+}
+
+/* i didn't put 'button:active' here because it doesn't work with 'filter' */
+
+button:hover {
+    filter: brightness(0.9);
+}
+
+.button-container {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0;
+}
+
+.calculator-container {
+    background-color: #1f273a;
+    border-radius: 16px;
+    border: solid 3px #110f22;
+    box-shadow: 5px 6px 5px #0c0e16;
+    max-width: 300px;
+    padding: 20px 20px;
+}
+
+.clear-btn {
+    background-color: #ff4828;
+    width: 144px;
+}
+
+.clear-btn:active {
+    background-color: #de4227;
+}
+
+.del-btn {
+    background-color: tomato;
+}
+
+.del-btn:active {
+    background-color: #dc543c;
+}
+
+.display {
+    background-color: #0a0f1c;
+    color: aliceblue;
+    padding: 14px 64px;
+    padding-left: 8px;
+    text-align: left;
+}
+
+.display-container {
+    background-color: #0a0f1c;
+    border-radius: 8px;
+    border: solid 2px #131313;
+    height: 84px;
+}
+
+.equals-btn {
+    background-color: mediumspringgreen;
+}
+
+.equals-btn:active {
+    background-color: #00d181;
+}
+
+.number {
+    background-color: #86929e;
+}
+
+.number:active {
+    background-color: lightslategrey;
+}
+
+.operator {
+    background-color: royalblue;
+}
+
+.operator:active {
+    background-color: #395cc7;
+}
+
+.operation-display {
+    font-size: x-large;
+    padding-bottom: 3px;
+}
+
+.point-btn:active {
+    background-color: #53616d;
+}
+
+.result-display {
+    color: lightgrey;
+    padding-top: 0px;
+}
+
+.zero-btn {
+    width: 144px;
+}
