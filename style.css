@@ -50,20 +50,12 @@ button:hover {
 }
 
 .clear-btn {
-    background-color: #ff4828;
-    width: 144px;
+    background-color: #baccd6;
+    width: 219px;
 }
 
 .clear-btn:active {
-    background-color: #de4227;
-}
-
-.del-btn {
-    background-color: tomato;
-}
-
-.del-btn:active {
-    background-color: #dc543c;
+    background-color: #97b6c6;
 }
 
 .display {
@@ -81,11 +73,11 @@ button:hover {
     height: 84px;
 }
 
-.equals-btn {
+#equals-btn {
     background-color: mediumspringgreen;
 }
 
-.equals-btn:active {
+#equals-btn:active {
     background-color: #00d181;
 }
 
@@ -105,20 +97,14 @@ button:hover {
     background-color: #395cc7;
 }
 
-.operation-display {
+.big-display {
     font-size: x-large;
     padding-bottom: 3px;
+    padding-top: 3px;
 }
 
-.point-btn:active {
-    background-color: #53616d;
-}
-
-.result-display {
+.small-display {
     color: lightgrey;
-    padding-top: 0px;
-}
-
-.zero-btn {
-    width: 144px;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
