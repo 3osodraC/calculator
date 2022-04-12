@@ -50,12 +50,12 @@ button:hover {
 }
 
 .clear-btn {
-    background-color: #baccd6;
+    background-color: #ff3e12;
     width: 219px;
 }
 
 .clear-btn:active {
-    background-color: #97b6c6;
+    background-color: #e3340c;
 }
 
 .display {
