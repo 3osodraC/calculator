@@ -29,7 +29,7 @@ buttons.forEach(button => button.addEventListener('click', (e) => {
 		bigDisplay.textContent = `${bigDisplay.textContent + e.target.textContent}`;
 	}
 
-	// (1) Populates operator & bigDisplay with spam prevention i.e.: '+++-xxx+'.
+	// (1) Populates & bigDisplay with spam prevention i.e.: '+++-xxx+'.
 	if(e.target.textContent.match(/[+×÷-]/) && bigDisplay.textContent != '' &&
 	!bigDisplay.textContent[bigDisplay.textContent.length - 1].match(/[+×÷-]/)) {
 		bigDisplay.textContent = `${bigDisplay.textContent + e.target.textContent}`;
