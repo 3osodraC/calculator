@@ -32,8 +32,7 @@ button {
     width: 69px;
 }
 
-/* i didn't put 'button:active' here because it doesn't work with 'filter' */
-
+/* i didn't use 'button:active' here because it doesn't work with 'filter' */
 button:hover {
     filter: brightness(0.85);
 }
