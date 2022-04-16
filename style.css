@@ -1,3 +1,7 @@
+* {
+    transition-duration: 0.1s;
+}
+
 html {
     height: 95%;
     margin: 0;
@@ -31,7 +35,13 @@ button {
 /* i didn't put 'button:active' here because it doesn't work with 'filter' */
 
 button:hover {
-    filter: brightness(0.9);
+    filter: brightness(0.85);
+}
+
+.big-display {
+    font-size: 24px;
+    padding-bottom: 3px;
+    padding-top: 3px;
 }
 
 .button-container {
@@ -70,7 +80,7 @@ button:hover {
     background-color: #0a0f1c;
     border-radius: 8px;
     border: solid 2px #131313;
-    height: 84px;
+    height: 101px;
 }
 
 #equals-btn {
@@ -97,14 +107,8 @@ button:hover {
     background-color: #395cc7;
 }
 
-.big-display {
-    font-size: x-large;
-    padding-bottom: 3px;
-    padding-top: 3px;
-}
-
 .small-display {
     color: lightgrey;
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding-top: 10px;
+    padding-bottom: 5px;
 }
