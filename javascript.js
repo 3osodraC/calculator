@@ -13,29 +13,18 @@ let operator = ''
   , newDisplay = false
   , numArray = [];
 
-// Resets bigDisplay when a new number is clicked after an operator. i.e.:
-// Small:    | --------> | 63+ | --------> | 63+ |
-// Big  : 63 | + clicked | 63  | 3 clicked | 3   |
+// Populates bigDisplay w/ numbers, prevents overflow and (1).
 numberButtons.forEach(button => button.addEventListener('click', (e) => {
+    // (1) Resets bigDisplay when a new number is clicked after an operator. i.e.:
+    // Small:    | --------> | 63+ | --------> | 63+ |
+    // Big  : 63 | + clicked | 63  | 3 clicked | 3   |
     if(newDisplay) {
         bigDisplay.textContent = '';
         newDisplay = false;
     }
     prevOp = operator;
-}));
 
-// Populates bigDisplay and (1) prevents operator spam.
-buttons.forEach(button => button.addEventListener('click', (e) => {
-	if(e.target.textContent.match(/[0-9]/)) {
-		bigDisplay.textContent = `${bigDisplay.textContent + e.target.textContent}`;
-	}
-
-	// (1) Populates bigDisplay with spam prevention i.e.: '+++-xxx+'.
-	if(e.target.textContent.match(/[+×÷-]/) && bigDisplay.textContent != '' &&
-	!bigDisplay.textContent[bigDisplay.textContent.length - 1].match(/[+×÷-]/)) {
-		bigDisplay.textContent = `${bigDisplay.textContent + e.target.textContent}`;
-        operator = e.target.textContent;
-	}
+    bigDisplay.textContent = `${bigDisplay.textContent + e.target.textContent}`;
 
     if(bigDisplay.textContent.length > 20) {
         bigDisplay.setAttribute('style', `font-size: 16px;`);
@@ -46,13 +35,16 @@ buttons.forEach(button => button.addEventListener('click', (e) => {
     }
 }));
 
-// Populates numArray, smallDisplay & operator. Also calculates.
+// Populates numArray, bigDisplay, smallDisplay & operator. Also calculates.
 operatorButtons.forEach(button => button.addEventListener('click', (e) => {
+    bigDisplay.textContent = `${bigDisplay.textContent + e.target.textContent}`;
+    operator = e.target.textContent;
+
     if(bigDisplay.textContent.match(/[0-9]/)) {
         numArray.push(parseInt(bigDisplay.textContent));
     }
 
-    smallDisplay.textContent = bigDisplay.textContent; // This might mess up the display.
+    smallDisplay.textContent = bigDisplay.textContent;
     if(numArray[numArray.length - 1] !== undefined) {
         bigDisplay.textContent = `${numArray[numArray.length - 1]}`;
     }
@@ -76,6 +68,8 @@ operatorButtons.forEach(button => button.addEventListener('click', (e) => {
 equalsBtn.addEventListener('click', () => {
     numArray.push(parseInt(bigDisplay.textContent));
     
+    // NOTE: I tried to turn the calculate part into a function but it wouldn't
+    // interact with the DOM properly. This will do for now.
     if(numArray.length > 1 && numArray[1] != undefined) {
         const index = numArray.length - 1;
         result = operate(numArray[index - 1], prevOp, numArray[index]);
@@ -88,8 +82,6 @@ equalsBtn.addEventListener('click', () => {
             bigDisplay.textContent = "Can't divide by zero!";
         }
     }
-    // NOTE: I tried to the calculate part into a function but it wouldn't
-    // interact with the DOM properly. This will do for now.
 });
 
 // Clears all data when 'AC' is clicked.
