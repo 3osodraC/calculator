@@ -72,7 +72,7 @@ equalsBtn.addEventListener('click', () => {
     // interact with the DOM properly. This will do for now.
     if(numArray.length > 1 && numArray[1] != undefined) {
         const index = numArray.length - 1;
-        result = operate(numArray[index - 1], prevOp, numArray[index]);
+        result = operate(numArray[index - 1], operator, numArray[index]);
         numArray.push(result);
         
         smallDisplay.textContent = `${numArray[index - 1] + operator + numArray[index]}=`;
