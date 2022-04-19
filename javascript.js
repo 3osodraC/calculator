@@ -51,7 +51,7 @@ operatorButtons.forEach(button => button.addEventListener('click', (e) => {
 		result = operate(numArray[index - 1], prevOp, numArray[index]);
 
         if(result === Infinity) {
-            alert("Can't divide by zero!");
+            alert("Dude, Don't do this.");
             result = numArray[index - 1];
         } else {
             bigDisplay.textContent = `${result}`;
@@ -79,7 +79,7 @@ equalsBtn.addEventListener('click', () => {
         result = operate(numArray[index - 1], operator, numArray[index]);
 
         if(result === Infinity) {
-            alert("Can't divide by zero!");
+            alert("Dude, Don't do this.");
             result = numArray[index - 1];
         } else {
             bigDisplay.textContent = `${result}`;
@@ -106,6 +106,7 @@ clearBtn.addEventListener('click', () => {
     smallDisplay.textContent = '';
     bigDisplay.textContent = '';
     bigDisplay.setAttribute('style', 'font-site: 24px;');
+    smallDisplay.setAttribute('style', 'font-site: 16px;');
 });
 
 // Prevents big & small display overflow.
@@ -118,18 +119,9 @@ buttons.forEach(button => button.addEventListener('click', () => {
         bigDisplay.textContent = bigDisplay.textContent.slice(0, -1);
     } if(smallDisplay.textContent.length >= 30) {
         smallDisplay.setAttribute('style', 'font-size: 14px');
+    } if(smallDisplay.textContent.length >= 40) {
+        smallDisplay.setAttribute('style', 'font-size: 8px');
     }
-}));
-
-// Debug
-buttons.forEach(button => button.addEventListener('click', () => {
-    console.log(
-        operator,
-        prevOp,
-        result,
-        newDisplay,
-        numArray,
-    );
 }));
 
 function operate(x, op, y) {
