@@ -36,7 +36,7 @@ operatorButtons.forEach(button => button.addEventListener('click', (e) => {
     operator = e.target.textContent;
 
     if(bigDisplay.textContent.match(/[0-9]/) && !eqlErrorCheck) {
-        numArray.push(parseInt(bigDisplay.textContent));
+        numArray.push(parseFloat(bigDisplay.textContent));
     }
 
     smallDisplay.textContent = bigDisplay.textContent;
@@ -49,14 +49,15 @@ operatorButtons.forEach(button => button.addEventListener('click', (e) => {
 	if(numArray.length > 1 && numArray[1] != undefined && !opErrorCheck && !eqlErrorCheck) {
         const index = numArray.length - 1;
 		result = operate(numArray[index - 1], prevOp, numArray[index]);
-        numArray.push(result);
 
-        smallDisplay.textContent = `${result + operator}`;
         if(result === Infinity) {
-            bigDisplay.textContent = "Can't divide by zero!";
+            alert("Can't divide by zero!");
+            result = numArray[index - 1];
         } else {
             bigDisplay.textContent = `${result}`;
         }
+        numArray.push(result);
+        smallDisplay.textContent = `${result + operator}`;
 	}
 
     eqlErrorCheck = false;
@@ -68,7 +69,7 @@ operatorButtons.forEach(button => button.addEventListener('click', (e) => {
 
 equalsBtn.addEventListener('click', () => {
     if(operator != '') {
-        numArray.push(parseInt(bigDisplay.textContent));
+        numArray.push(parseFloat(bigDisplay.textContent));
     }
 
     // NOTE: I tried to turn the calculate part into a function but it wouldn't
@@ -76,16 +77,16 @@ equalsBtn.addEventListener('click', () => {
     if(numArray.length > 1 && numArray[1] != undefined) {
         const index = numArray.length - 1;
         result = operate(numArray[index - 1], operator, numArray[index]);
-        numArray.push(result);
-        
-        smallDisplay.textContent = 
-        `${numArray[index - 1] + operator + numArray[index]}=`;
-        
-        bigDisplay.textContent = `${result}`;
 
         if(result === Infinity) {
-            bigDisplay.textContent = "Can't divide by zero!";
+            alert("Can't divide by zero!");
+            result = numArray[index - 1];
+        } else {
+            bigDisplay.textContent = `${result}`;
         }
+        numArray.push(result);
+        smallDisplay.textContent = 
+        `${numArray[index - 1] + operator + numArray[index]}=`;
     }
 
     // Prevents calculation when you press an operator right after '='.
