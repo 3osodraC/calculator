@@ -11,8 +11,9 @@ let operator = ''
   , prevOp = '' // Previous operator. A work-around for erroneous calculations.
   , result
   , newDisplay = false
-  , numArray = []
-  , errorCheck = false;
+  , opErrorCheck = false
+  , eqlErrorCheck = false
+  , numArray = [];
 
 // Populates bigDisplay w/ numbers and (1).
 numberButtons.forEach(button => button.addEventListener('click', (e) => {
@@ -24,7 +25,7 @@ numberButtons.forEach(button => button.addEventListener('click', (e) => {
         newDisplay = false;
     }
     prevOp = operator;
-    errorCheck = false;
+    opErrorCheck = false;
 
     bigDisplay.textContent = `${bigDisplay.textContent + e.target.textContent}`;
 }));
@@ -34,7 +35,7 @@ operatorButtons.forEach(button => button.addEventListener('click', (e) => {
     bigDisplay.textContent = `${bigDisplay.textContent + e.target.textContent}`;
     operator = e.target.textContent;
 
-    if(bigDisplay.textContent.match(/[0-9]/)) {
+    if(bigDisplay.textContent.match(/[0-9]/) && !eqlErrorCheck) {
         numArray.push(parseInt(bigDisplay.textContent));
     }
 
@@ -44,8 +45,8 @@ operatorButtons.forEach(button => button.addEventListener('click', (e) => {
     }
     newDisplay = true;
 
-    // Calculates. '&& !errorCheck' prevents an error, see the comment below.
-	if(numArray.length > 1 && numArray[1] != undefined && !errorCheck) {
+    // Calculates. '&& !opErrorCheck' prevents an error, see the comment below.
+	if(numArray.length > 1 && numArray[1] != undefined && !opErrorCheck && !eqlErrorCheck) {
         const index = numArray.length - 1;
 		result = operate(numArray[index - 1], prevOp, numArray[index]);
         numArray.push(result);
@@ -58,9 +59,11 @@ operatorButtons.forEach(button => button.addEventListener('click', (e) => {
         }
 	}
 
+    eqlErrorCheck = false;
+
     // Prevents error when you change the operator before clicking another number.
     // It resets to false when you click a number (numberButtons.forEach).
-    errorCheck = true;
+    opErrorCheck = true;
 }));
 
 equalsBtn.addEventListener('click', () => {
@@ -84,6 +87,9 @@ equalsBtn.addEventListener('click', () => {
             bigDisplay.textContent = "Can't divide by zero!";
         }
     }
+
+    // Prevents calculation when you press an operator right after '='.
+    eqlErrorCheck = true;
 });
 
 // Clears all data when 'AC' is clicked.
