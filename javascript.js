@@ -98,6 +98,8 @@ clearBtn.addEventListener('click', () => {
     prevOp = '';
     result = 0;
     newDisplay = false;
+    opErrorCheck = false;
+    eqlErrorCheck = false;
     numArray = [];
 
     smallDisplay.textContent = '';
