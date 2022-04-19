@@ -14,7 +14,7 @@ let operator = ''
   , numArray = []
   , errorCheck = false;
 
-// Populates bigDisplay w/ numbers, prevents overflow and (1).
+// Populates bigDisplay w/ numbers and (1).
 numberButtons.forEach(button => button.addEventListener('click', (e) => {
     // (1) Resets bigDisplay when a new number is clicked after an operator. i.e.:
     // Small:    | --------> | 63+ | --------> | 63+ |
@@ -27,14 +27,6 @@ numberButtons.forEach(button => button.addEventListener('click', (e) => {
     errorCheck = false;
 
     bigDisplay.textContent = `${bigDisplay.textContent + e.target.textContent}`;
-
-    if(bigDisplay.textContent.length > 20) {
-        bigDisplay.setAttribute('style', `font-size: 16px;`);
-    } if(bigDisplay.textContent.length > 30) {
-        bigDisplay.setAttribute('style', `font-size: 10px;`);
-    } if(bigDisplay.textContent.length >= 50) {
-        bigDisplay.textContent = bigDisplay.textContent.slice(0, -1);
-    }
 }));
 
 // Populates numArray, bigDisplay, smallDisplay & operator. Also calculates.
@@ -67,13 +59,15 @@ operatorButtons.forEach(button => button.addEventListener('click', (e) => {
 	}
 
     // Prevents error when you change the operator before clicking another number.
-    // It resets to false when you click a number.
+    // It resets to false when you click a number (numberButtons.forEach).
     errorCheck = true;
 }));
 
 equalsBtn.addEventListener('click', () => {
-    numArray.push(parseInt(bigDisplay.textContent));
-    
+    if(operator != '') {
+        numArray.push(parseInt(bigDisplay.textContent));
+    }
+
     // NOTE: I tried to turn the calculate part into a function but it wouldn't
     // interact with the DOM properly. This will do for now.
     if(numArray.length > 1 && numArray[1] != undefined) {
@@ -104,6 +98,19 @@ clearBtn.addEventListener('click', () => {
     bigDisplay.textContent = '';
     bigDisplay.setAttribute('style', 'font-site: 24px;');
 });
+
+// Prevents big & small display overflow.
+buttons.forEach(button => button.addEventListener('click', () => {
+    if(bigDisplay.textContent.length >= 20) {
+        bigDisplay.setAttribute('style', 'font-size: 16px;');
+    } if(bigDisplay.textContent.length >= 30) {
+        bigDisplay.setAttribute('style', 'font-size: 10px;');
+    } if(bigDisplay.textContent.length >= 50) {
+        bigDisplay.textContent = bigDisplay.textContent.slice(0, -1);
+    } if(smallDisplay.textContent.length >= 30) {
+        smallDisplay.setAttribute('style', 'font-size: 14px');
+    }
+}));
 
 // Debug
 buttons.forEach(button => button.addEventListener('click', () => {
