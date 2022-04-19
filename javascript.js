@@ -11,7 +11,8 @@ let operator = ''
   , prevOp = '' // Previous operator. A work-around for erroneous calculations.
   , result
   , newDisplay = false
-  , numArray = [];
+  , numArray = []
+  , errorCheck = false;
 
 // Populates bigDisplay w/ numbers, prevents overflow and (1).
 numberButtons.forEach(button => button.addEventListener('click', (e) => {
@@ -23,6 +24,7 @@ numberButtons.forEach(button => button.addEventListener('click', (e) => {
         newDisplay = false;
     }
     prevOp = operator;
+    errorCheck = false;
 
     bigDisplay.textContent = `${bigDisplay.textContent + e.target.textContent}`;
 
@@ -50,8 +52,8 @@ operatorButtons.forEach(button => button.addEventListener('click', (e) => {
     }
     newDisplay = true;
 
-    // Calculates
-	if(numArray.length > 1 && numArray[1] != undefined) {
+    // Calculates. '&& !errorCheck' prevents an error, see the comment below.
+	if(numArray.length > 1 && numArray[1] != undefined && !errorCheck) {
         const index = numArray.length - 1;
 		result = operate(numArray[index - 1], prevOp, numArray[index]);
         numArray.push(result);
@@ -63,6 +65,10 @@ operatorButtons.forEach(button => button.addEventListener('click', (e) => {
             bigDisplay.textContent = `${result}`;
         }
 	}
+
+    // Prevents error when you change the operator before clicking another number.
+    // It resets to false when you click a number.
+    errorCheck = true;
 }));
 
 equalsBtn.addEventListener('click', () => {
@@ -75,7 +81,9 @@ equalsBtn.addEventListener('click', () => {
         result = operate(numArray[index - 1], operator, numArray[index]);
         numArray.push(result);
         
-        smallDisplay.textContent = `${numArray[index - 1] + operator + numArray[index]}=`;
+        smallDisplay.textContent = 
+        `${numArray[index - 1] + operator + numArray[index]}=`;
+        
         bigDisplay.textContent = `${result}`;
 
         if(result === Infinity) {
@@ -96,6 +104,17 @@ clearBtn.addEventListener('click', () => {
     bigDisplay.textContent = '';
     bigDisplay.setAttribute('style', 'font-site: 24px;');
 });
+
+// Debug
+buttons.forEach(button => button.addEventListener('click', () => {
+    console.log(
+        operator,
+        prevOp,
+        result,
+        newDisplay,
+        numArray,
+    );
+}));
 
 function operate(x, op, y) {
     switch (true) {
